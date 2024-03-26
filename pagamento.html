@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagamento</title>
+  <link rel="stylesheet" href="pagamento.css">
+</head>
+<body>
+  <header>
+    <h1>Pagamento</h1>
+  </header>
+  <main>
+    <section class="resumo-pedido">
+      <h2>Resumo do Pedido</h2>
+      <p>Total:</p>
+      <div id="Total">R$0,00</div>
+      <br>
+      <label for="cep">CEP:</label>
+<input type="text" id="cep" name="cep" oninput="calcularFrete()" required><br><br>
+    </section>
+    
+    <section class="dados-pagamento">
+      <h2>Escolha o método de pagamento</h2>
+      <form id="formPagamento" action="#" onsubmit="return validarFormularioPagamento()">
+        <label><input type="radio" name="metodoPagamento" value="pix" onclick="mostrarOpcaoPagamento('pix')"> Pix</label><br>
+        <label><input type="radio" name="metodoPagamento" value="boleto" onclick="mostrarOpcaoPagamento('boleto')"> Boleto</label><br>
+        <label><input type="radio" name="metodoPagamento" value="cartao" onclick="mostrarOpcaoPagamento('cartao')" checked> Cartão de Crédito</label><br><br>
+
+        <div id="opcaoPix" style="display: none;">
+          <h3>Pagamento via Pix</h3>
+          <img id="qrCode" src="" alt="QR Code">
+        </div>
+
+        <div id="opcaoBoleto" style="display: none;">
+          <h3>Pagamento via Boleto</h3>
+          <p>Número do Boleto: <span id="numeroBoleto"></span></p>
+        </div>
+
+        <div id="opcaoCartao">
+          <h3>Pagamento via Cartão de Crédito</h3>
+          <label for="nome">Nome Completo:</label>
+          <input type="text" id="nome" name="nome" oninput="capitalizarTexto(this)"required><br><br>
+          <div id="mensagemErroNome" style="color: red;"></div> <!-- Elemento para exibir a mensagem de erro -->
+          <label for="cartao">Número do Cartão:</label>
+          <input type="text" id="cartao" name="cartao" oninput="mostrarbandeira()" required><img id="bandeiraCartao" src="" alt="Bandeira do Cartão" style="display: none;"><br><br>
+          <label for="validade">Validade:</label>
+          <input type="text" id="validade" name="validade" oninput="formatarValidadeCartao(this)"   required><br><br>
+          <label for="cvv">CVV:</label>
+          <input type="text" id="cvv" name="cvv" required><br><br>
+        </div>
+
+        <button type="submit" onclick="validarCVV">Pagar</button>
+      </form>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2024 - Sua Empório das Bolsas</p>
+  </footer>
+  <script src="pagamento.js"></script>
+  <script>
+    // Função para capitalizar texto
+    function capitalizarTexto(elemento) {
+      var texto = elemento.value; // Obter o valor do campo de entrada
+      elemento.value = texto.toUpperCase(); // Converter o texto em maiúsculas e definir de volta no campo
+    }
+  </script>
+</body>
+</html>
+
